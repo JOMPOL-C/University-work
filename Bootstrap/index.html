@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF=8" />
+        <meta name="viewpoint" content="width=device-width" />
+        <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" 
+        crossorigin="anonymous">
+        <title> 2-cols </title>
+    </head>
+    <body class="d-fex flex-column vh-100">
+        <header>
+            <nav class="navbar navbar-brand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">My Web Site 💕💕</a>
+            </div>
+            </nav>
+        </header>
+        <main class="flex-grow-1 container py-4">
+            <!--aside  + section -->
+            <div class="row">
+                <aside class="col-md-4 col-lg-3">
+                    <h4> หมวดหมู่ </h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">หมวดหมู่ 1</li>
+                        <li class="list-group-item">หมวดหมู่ 2</li>
+                        <li class="list-group-item">หมวดหมู่ 3</li>
+                    </ul>
+                </aside>
+
+                <section class="col-md-8 col-lg-9">
+                    <h2>เนื้อหาหลัก</h2>
+                    <p> ส่วนของเนื้อหาในเว็บ </p>
+                    
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label " >ชื่อ นามสกุล</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">ตามบัตรประชาชน</div>
+                </div>
+                    <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">อีเมล</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">จดจำฉัน</label>
+                </div>
+                <label for="gender" style="padding: 5px;">เพศ</label><br />
+                <select name="gender" id="gender" style="border-radius: 10px;">
+                    <option value="male">ชาย</option>
+                    <option value="female">หญิง</option>
+                </select><br />
+                <br />
+                    <button type="submit" class="btn btn-primary">ส่งค่า</button>
+            </form>
+                </section>
+
+            </div>
+        </main>
+        <footer class="bg-dark text-white  text-center p-3">
+            <div class="container">&copy; 2025 MyWebSite</div>
+        </footer>
+    </body>
+</html>
