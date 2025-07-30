@@ -42,6 +42,7 @@
         text-align: center;
         border-radius: 0.75rem;
         padding: 2rem;
+        
       }
     </style>
   </head>
@@ -121,103 +122,201 @@
             </table>
           </div>
         </div>
+        <div class="flex justify-center mt-6">
+          <button
+            id="process-order"
+            class="bg-blue-500 
+            hover:bg-green-700 
+            text-white 
+            font-bold py-2 px-5 
+            rounded-lg "
+          >
+            ประมวลผลคำสั่งซื้อ
+          </button>
+        </div>
+        
+        </div>
+        <div class="porcess h-full flex flex-col" >
+          <div class="card h-full flex flex-col">
+            <div class="answer-process" id="summary-table">
+            <h2 class="output-placeholder">
+              <p class="text-3xl">🧾</p>
+              <span class="text-slate-500 text-2xl font-bold">ผลลัพธ์การประมวลผล</span> 
+              <p>ผลลัพธ์จะแสดงผลที่นี่หลังจากกดปุ่ม "ประมวลผลคำสั่งซื้อ"</p>
+            </h2>
+          </div>
+          </div>
         </div>
       </main>
     </div>
-        </div>
+        
 
         
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const products = [
-          {
-            id: 101,
-            name: "หูฟังบลูทูธ Sony",
-            category: "Electronics",
-            price: 4590,
-            stock: 15,
-          },
-          {
-            id: 102,
-            name: "คีย์บอร์ด Mechanical",
-            category: "Electronics",
-            price: 2800,
-            stock: 8,
-          },
-          {
-            id: 201,
-            name: "หนังสือ The Pragmatic Programmer",
-            category: "Books",
-            price: 850,
-            stock: 30,
-          },
-          {
-            id: 202,
-            name: "หนังสือ Clean Code",
-            category: "Books",
-            price: 799,
-            stock: 0,
-          }, // สินค้าหมด
-          {
-            id: 301,
-            name: "แก้วกาแฟ Starbucks",
-            category: "Lifestyle",
-            price: 550,
-            stock: 25,
-          },
-          {
-            id: 302,
-            name: "Nintendo Swich 2",
-            category: "Game Gear",
-            price: 14990,
-            stock: 5,
-          },
-        ];
+          const products=[
+  {
+  id: 101,
+  name: "หูฟังบลูทูธ Sony",
+  category: "Electronics",
+  price: 4590,
+  stock: 15,
+},
+{
+  id: 102,
+  name: "คีย์บอร์ด Mechanical",
+  category: "Electronics",
+  price: 2800,
+  stock: 8,
+},
+{
+  id: 201,
+  name: "หนังสือ The Pragmatic Programmer",
+  category: "Books",
+  price: 850,
+  stock: 30,
+},
+{
+  id: 202,
+  name: "หนังสือ Clean Code",
+  category: "Books",
+  price: 799,
+  stock: 0,
+}, // สินค้าหมด
+{
+  id: 301,
+  name: "แก้วกาแฟ Starbucks",
+  category: "Lifestyle",
+  price: 550,
+  stock: 25,
+}]
+const user = {
+name: "สมศักดิ์",
+shoppingCart: [
+  { productId: 101, quantity: 1 }, //หูฟัง Sony 1 อัน
+  { productId: 201, quantity: 2 },
+  { productId: 102, quantity: 1 },
+  { productId: 202, quantity: 1 },
+  { productId: 301, quantity: 1 },
+],
+};
+       const productsTableBody = document.getElementById("products-table") 
+       const cartTableBody = document.getElementById("cart-table")
+       const summaryTableBody =  document.getElementById("summary-table") 
 
-        const user = {
-          name: "สมศักดิ์",
-          shoppingCart: [
-            { productId: 101, quantity: 1 }, //หูฟัง Sony 1 อัน
-            { productId: 201, quantity: 2 },
-            { productId: 102, quantity: 1 },
-            { productId: 202, quantity: 1 },
-            { productId: 301, quantity: 1 },
-          ],
-        };
+       const loadedData = () => {
+          productsTableBody.innerHTML = products.map((p) => 
+              `<tr>
+              <td class="px-4 py-3 text-sm">${p.id}</td>
+              <td class="px-4 py-3 text-sm">${p.name}</td>
+              <td class="px-4 py-3 text-sm">${p.price.toLocaleString()}</td>
+              <td class="px-4 py-3 text-sm">${p.stock}</td>
+          </tr> `).join("");
 
-        const productsTableBody = document.getElementById("products-table");
-        const cartTableBody = document.getElementById("cart-table");
+           cartTableBody.innerHTML = user.shoppingCart.map((i) => 
+              `<tr>
+              <td class="px-4 py-3 text-sm">${i.productId}</td>
+              <td class="px-4 py-3 text-sm">${i.quantity}</td>
+               </tr> `).join("");
+       };
+       
+       loadedData();
+      
+      let processed = false;
 
-        // เอา products มาวนลูปใน productsTableBody
-        const loadData = () => {
-          productsTableBody.innerHTML = products
-            .map(
-              (p) =>
-                `<tr>
-                  <td class="px-4 py-3 text-sm">${p.id}</td>
-                  <td class="px-4 py-3 text-sm">${p.name}</td>
-                  <td class="px-4 py-3 text-sm">${p.price.toLocaleString()}</td>
-                  <td class="px-4 py-3 text-sm ${
-                    p.stock === 0 ? "text-red-500 font-semibold" : ""
-                  }"">${p.stock}</td>
-                </tr>`
-            )
-            .join("");
+      document.getElementById("process-order").addEventListener("click", () => {
+  const button = document.getElementById("process-order");
 
-          cartTableBody.innerHTML = user.shoppingCart
-            .map(
-              (i) =>
-                `<tr>
-                  <td class="px-4 py-3 text-sm">${i.productId}</td>
-                  <td class="px-4 py-3 text-sm">${i.quantity}</td>
-                </tr>`
-            )
-            .join("");
-        };
+  if (processed) {
+    location.reload();
+    return;
+  }
 
-        loadData();
+  const summaryDiv = document.getElementById("summary-table");
+  summaryDiv.innerHTML = `
+    <h3 class="text-xl text-center font-bold mb-4">🧾 ใบสรุปคำสั่งซื้อของคุณ สมศักดิ์</h3>
+  `;
+
+  let systemLog = '';
+  let summaryItems = '';
+  let total = 0;
+  let allOver1000 = true;
+  let hasBookCategory = false;
+
+  user.shoppingCart.forEach(item => {
+    const product = products.find(p => p.id === item.productId);
+    if (!product) return;
+
+    if (product.category.toLowerCase() === "books") {
+      hasBookCategory = true;
+    }
+
+    if (product.stock >= item.quantity) {
+      const subtotal = product.price * item.quantity;
+      summaryItems += `
+        <div class="flex justify-between border-b py-2">
+          <div>
+            <div class="font-semibold">${product.name}</div>
+            <div class="text-sm text-slate-500">${product.price.toLocaleString()} × ${item.quantity}</div>
+          </div>
+          <div>${subtotal.toLocaleString()} บาท</div>
+        </div>
+      `;
+      total += subtotal;
+
+      if (product.price < 1000) {
+        allOver1000 = false;
+      }
+    } else {
+      systemLog += `
+        <div class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded mb-2">
+          ⚠️ สินค้า <strong>${product.name}</strong> ไม่พร้อมจำหน่าย (อาจหมดสต็อก)
+        </div>
+      `;
+    }
+  });
+
+  const summaryHTML = `
+    ${systemLog ? `<div class="mb-4">${systemLog}</div>` : ''}
+
+    <h4 class="text-lg font-semibold mb-2">📦 รายการสินค้าที่พร้อมจัดส่ง:</h4>
+    ${summaryItems}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+      <div class="bg-blue-50 text-center p-4 rounded">
+        <div class="text-sm font-medium text-slate-600">ยอดรวมสุทธิ</div>
+        <div class="text-xl font-bold text-blue-600">${total.toLocaleString()} บาท</div>
+      </div>
+
+      <div class="bg-slate-100 text-left p-4 rounded space-y-2">
+        <div class=" text-2xl font-bold text-align: center;">🔎 Cart Insights</div>
+        <div>สินค้าทุกชิ้นราคาเกิน 1,000 บาท: 
+          <span class="${allOver1000 ? 'text-green-600' : 'text-red-600'}">
+            ${allOver1000 ? 'ใช่' : 'ไม่ใช่'}
+          </span>
+        </div>
+        <div>มีสินค้าหมวดหนังสือ: 
+          <span class="${hasBookCategory ? 'text-green-600' : 'text-red-600'}">
+            ${hasBookCategory ? 'ใช่' : 'ไม่ใช่'}
+          </span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  summaryDiv.innerHTML += summaryHTML;
+
+  button.textContent = "เริ่มใหม่";
+  button.classList.remove("bg-blue-500", "hover:bg-green-700");
+  button.classList.add("bg-slate-500", "hover:bg-slate-700");
+
+  processed = true;
+});
+
+
       });
-    </script>
+
+  </script>
   </body>
 </html>
