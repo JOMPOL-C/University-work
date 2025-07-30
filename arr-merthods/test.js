@@ -2,7 +2,7 @@
 const users = [
   { id: 1, name: "John", email: "john.s@gmail.com" },
   { id: 2, name: "Mary", email: "marysocute@gmail.com" },
-  { id: 3, name: "Somchai", email: "yourdad@gmail.com" }
+  { id: 3, name: "Somchai", email: "yourdad@gmail.com" },
 ];
 
 for (let i = 0; i < users.length; i++) {
