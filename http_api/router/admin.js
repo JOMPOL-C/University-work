@@ -13,4 +13,13 @@ router.post('/product', (req, res) => {
     res.redirect('/');
 });
 
+//สร้าง Array เพื่อเก็บข้อมูลสินค้า
+const products = [];
+router.post('/products', (req, res) => {
+    const product = req.body.product;
+    products.push(product);
+    console.log(products);
+    res.redirect('/');
+});
+
 module.exports = router;
