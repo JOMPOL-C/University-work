@@ -4,21 +4,26 @@ const path = require("path");
 
 const router = express.Router();
 
+const products = require('./shop.js').products;
+
 router.get("/add-product", (req, res) => {
+    console.log("In add-product");
     res.sendFile(path.join(__dirname, "../views/add-product.html"));
 });
 
 router.post('/product', (req, res) => {
-    console.log(req.body);
-    res.redirect('/');
-});
+    const { name, price, stock } = req.body;
 
-//สร้าง Array เพื่อเก็บข้อมูลสินค้า
-const products = [];
-router.post('/products', (req, res) => {
-    const product = req.body.product;
-    products.push(product);
-    console.log(products);
+    const newProduct = {
+        id: products.length + 1,
+        name,
+        price: parseFloat(price),
+        stock: parseInt(stock)
+    };
+
+    products.push(newProduct);
+    console.log("เพิ่มสินค้าใหม่:", newProduct);
+
     res.redirect('/');
 });
 
