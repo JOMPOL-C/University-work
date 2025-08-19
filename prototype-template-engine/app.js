@@ -18,7 +18,7 @@ app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.pug"));
+  res.status(404).render(path.join(__dirname, "views", "404.pug"));
 });
 
 app.listen(3000);
