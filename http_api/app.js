@@ -7,7 +7,7 @@ const app = express();
 const adminRouter = require("./router/admin");
 const shopRouter = require("./router/shop.js");
 
-app.use(express.json())
+app.use("/admin", express.json())
 app.use(express.urlencoded({ extended: true}));
 
 app.use(express.static("public"));
